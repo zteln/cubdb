@@ -222,9 +222,9 @@ defmodule CubDB.Btree do
   # overwriting any existing values associated with the same key. It does not commit
   # the operation, so `commit/1` must be explicitly called to commit the insertion.
   def insert_metadata(btree, key, value) do
-    %Btree{metadata: metadata} = btree
+    %Btree{metadata: metadata, dirt: dirt} = btree
     metadata = Keyword.put(metadata, key, value)
-    %{btree | metadata: metadata}
+    %{btree | metadata: metadata, dirt: dirt + 1}
   end
 
   @spec delete_metadata(Btree.t(), key) :: Btree.t()
@@ -233,9 +233,9 @@ defmodule CubDB.Btree do
   # table, if it exists, otherwise it does nothing. It does not commit the operation,
   # so `commit/1` must be explicitly called to commit the deletion.
   def delete_metadata(btree, key) do
-    %Btree{metadata: metadata} = btree
+    %Btree{metadata: metadata, dirt: dirt} = btree
     metadata = Keyword.delete(metadata, key)
-    %{btree | metadata: metadata}
+    %{btree | metadata: metadata, dirt: dirt + 1}
   end
 
   @spec delete(Btree.t(), key) :: Btree.t()
