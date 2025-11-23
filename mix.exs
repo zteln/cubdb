@@ -3,7 +3,7 @@ defmodule CubDB.Mixfile do
 
   @source_url "https://github.com/zteln/cubdb"
   @forked_url "https://github.com/lucaong/cubdb"
-  @version "2.0.5"
+  @version "2.0.6"
 
   def project do
     [
